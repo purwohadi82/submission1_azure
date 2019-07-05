@@ -359,6 +359,24 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+/*azure config*/
+$config['azure_storage_account_name'] = 'purwowebapp'; // Your Storage account name
+$config['azure_storage_account_key']  = 'QldD9fFpWIqyvZcFtiXmDAGIX8RWD6HF8r2dNG4XUom01XKHfyQe6tU5PjrvLKUX/FHPzZl+0gwJaerG5QRYXw=='; // Your account key
+
+// Usually the ones below can stay the same unless you are gonna use storage emulator
+$config['azure_table_host'] = 'table.core.windows.net';
+$config['azure_blob_host'] = 'blob.core.windows.net';
+$config['azure_queue_host'] = 'queue.core.windows.net';
+
+$config['azure_storage_useproxy'] = false;
+$config['azure_storage_proxy'] =    '';
+$config['azure_storage_proxy_port'] = '8080';
+
+// The primary and backup caching adapters to use for caching azure queries
+$config['azure_caching_adapter'] = 'apc';
+$config['azure_caching_backup']  = 'file';
+$config['azure_caching_interval']  = 3600;   // 1 hour
+
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

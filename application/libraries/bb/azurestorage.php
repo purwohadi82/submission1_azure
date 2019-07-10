@@ -24,12 +24,14 @@ class Azurestorage
 	}
 	public function getConnectionString()
 	{
-		/*
-        $storageaccountkey = getenv('STORAGE_ACCOUNT_KEY');
-		$storageaccountname = getenv('STORAGE_ACCOUNT_NAME');
-        */
+		
+        $storageaccountkey = getenv('QldD9fFpWIqyvZcFtiXmDAGIX8RWD6HF8r2dNG4XUom01XKHfyQe6tU5PjrvLKUX/FHPzZl+0gwJaerG5QRYXw==');
+		$storageaccountname = getenv('purwowebapp');
+        
+        /*
         $storageaccountkey = 'QldD9fFpWIqyvZcFtiXmDAGIX8RWD6HF8r2dNG4XUom01XKHfyQe6tU5PjrvLKUX/FHPzZl+0gwJaerG5QRYXw==';
 		$storageaccountname = 'purwowebapp';
+		*/
 		return "DefaultEndpointsProtocol=https;AccountName=$storageaccountname;AccountKey=$storageaccountkey";
 	}
 	
@@ -38,17 +40,21 @@ class Azurestorage
         //die($file["fileToUpload"]["name"]." ");
         $containerName = "blobpurwo";
         // Create table REST proxy.
+        $blobClient = BlobRestProxy::createBlobService($connectionString);
         $fileToUpload = strtolower($file["fileToUpload"]["name"]);
         $content = fopen($file["fileToUpload"]["tmp_name"], "r");
+        
+        $blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+        
         // echo fread($content, filesize($fileToUpload));
         //$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
-        
+        /*
         if($blobClient->createBlockBlob($containerName, $fileToUpload, $content)){
                 return TRUE; 
             }else{
                 return FALSE; 
             }
-            
+            */
     }
     
     

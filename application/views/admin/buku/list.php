@@ -76,8 +76,8 @@ height: 26px;"');
                 <th class="red header">Tahun</th>
                 <th class="red header">Jenis Buku</th>
                 <th class="red header">Jumlah</th>
-                <th class="red header">Gambar</th>
-                <th class="red header">Actions</th>
+                <!--<th class="red header">Gambar</th>
+                <th class="red header">Actions</th>-->
               </tr>
             </thead>
             <tbody>
@@ -92,10 +92,12 @@ height: 26px;"');
                 echo '<td>'.$row['tahun'].'</td>';
                 echo '<td>'.$row['jenis_buku'].'</td>';
                 echo '<td>'.$row['jumlah'].'</td>';
+                /*
                 echo '<td></td>';
                 echo '<td class="crud-actions">
                   <a href="'.site_url("admin").'/buku/update/'.$row['id_buku'].'" class="btn btn-info">Analyze Gambar</a>  
                 </td>';
+                */
                 /*
                 echo '<td class="crud-actions">
                   <a href="'.site_url("admin").'/buku/update/'.$row['id_buku'].'" class="btn btn-info">view & edit</a>  

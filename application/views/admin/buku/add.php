@@ -89,13 +89,14 @@
                     <!--<span class="help-inline">OOps</span>-->
                 </div>
             </div>
+            <!--
             <div class="control-group">
                 <label for="inputError" class="control-label">Upload Gambar</label>
                 <div class="controls">
                     <input type="file" id="upload" name="upload">
-                    <!--<span class="help-inline">OOps</span>-->
                 </div>
             </div>
+            -->
             <div class="form-actions">
                 <button class="btn btn-primary" type="submit">Save changes</button>
                 <button class="btn" type="reset">Cancel</button>

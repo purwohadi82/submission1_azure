@@ -1,5 +1,5 @@
 <?php
-//require_once(APPPATH.'libraries/azurestorage/vendor/autoload.php');
+require_once(APPPATH.'libraries/vendor/autoload.php');
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
@@ -17,7 +17,7 @@ class Admin_analisa extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('buku_model');
-		$this->load->library('azurestorage');
+		//$this->load->library('azurestorage');
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -153,17 +153,23 @@ class Admin_analisa extends CI_Controller {
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
-            //form validation
-            // Get connection string
-            $Azurestorage = new Azurestorage;
-            $connectionString = $Azurestorage->getConnectionString();
-        
+            $storageaccountkey = 'QldD9fFpWIqyvZcFtiXmDAGIX8RWD6HF8r2dNG4XUom01XKHfyQe6tU5PjrvLKUX/FHPzZl+0gwJaerG5QRYXw==';
+            $storageaccountname = 'purwowebapp';
+            //$connectionString = "DefaultEndpointsProtocol=https;AccountName=purwowebapp;AccountKey=QldD9fFpWIqyvZcFtiXmDAGIX8RWD6HF8r2dNG4XUom01XKHfyQe6tU5PjrvLKUX/FHPzZl+0gwJaerG5QRYXw==";
+            
+            $connectionString = "DefaultEndpointsProtocol=https;AccountName=$storageaccountname;AccountKey=$storageaccountkey";
+            
             $containerName = "blobpurwo";
-            // Create table REST proxy.
-            $connectionString = $Azurestorage->uploadBlob($connectionString,$_FILES);
-         $data['flash_message'] = $connectionString;
-            //if the upload has returned true then we show the flash message
+            // Create blob client.
+            $blobClient = BlobRestProxy::createBlobService($connectionString);
+            
+            $fileToUpload   = strtolower($_FILES["fileToUpload"]["name"]);
+            $content        = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
+                       
+            $blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+            
             /*
+            //if the upload has returned true then we show the flash message            
             if($blobClient->createBlockBlob($containerName, $fileToUpload, $content)){
                 $data['flash_message'] = TRUE; 
             }else{

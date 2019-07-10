@@ -57,6 +57,10 @@ $route['admin/buku/update/(:any)'] = 'admin_buku/update/$1';
 $route['admin/buku/delete/(:any)'] = 'admin_buku/delete/$1';
 $route['admin/buku/(:any)'] = 'admin_buku/index/$1'; //$1 = page number
 
+$route['admin/analisa']         = 'admin_analisa/index';
+$route['admin/analisa/upload']  = 'admin_analisa/upload';
+$route['admin/analisa/add']     = 'admin_analisa/add';
+
 $route['admin/manufacturers'] = 'admin_manufacturers/index';
 $route['admin/manufacturers/add'] = 'admin_manufacturers/add';
 $route['admin/manufacturers/update'] = 'admin_manufacturers/update';

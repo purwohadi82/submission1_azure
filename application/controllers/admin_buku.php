@@ -247,10 +247,10 @@ class Admin_buku extends CI_Controller {
             if ($this->form_validation->run())
             {
                 if($_FILES["fileToUpload"]["name"]){
-                    $storageaccountkey  = 'QldD9fFpWIqyvZcFtiXmDAGIX8RWD6HF8r2dNG4XUom01XKHfyQe6tU5PjrvLKUX/FHPzZl+0gwJaerG5QRYXw==';
-                    $storageaccountname = 'purwowebapp';
+                    $storageaccountkey  = 'STORAGE_ACCOUNT_KEY';
+                    $storageaccountname = 'STORAGE_ACCOUNT_NAME';
                     $connectionString   = "DefaultEndpointsProtocol=https;AccountName=$storageaccountname;AccountKey=$storageaccountkey";
-                    $containerName      = "blobpurwo";
+                    $containerName      = "CONTAINER_NAME";
                     
                     // Create blob client.
                     $blobClient = BlobRestProxy::createBlobService($connectionString);

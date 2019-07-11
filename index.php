@@ -25,7 +25,11 @@ if ($_SERVER['SERVER_NAME'] == 'local_server_name') {
     define('ENVIRONMENT', 'production');
 }
 */
-define('ENVIRONMENT', 'development');
+if ($_SERVER['SERVER_NAME'] == 'local_server_name') {
+    define('ENVIRONMENT', 'development');
+} else {
+    define('ENVIRONMENT', 'production');
+}
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

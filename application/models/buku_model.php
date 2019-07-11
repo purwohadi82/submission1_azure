@@ -21,7 +21,7 @@ class Buku_model extends CI_Model {
 		$this->db->from('tb_buku');
 		$this->db->where('id_buku', $id);
 		$query = $this->db->get();
-		return $query->result_array(); 
+		return $query->row(); 
     }
 
     /**
@@ -47,6 +47,7 @@ class Buku_model extends CI_Model {
         $this->db->select('lokasi_rak');
         $this->db->select('isbn');
         $this->db->select('jumlah');
+        $this->db->select('foto');
 		$this->db->from('tb_buku');
 		if($buku_id != null){
 			$this->db->where('id_buku', $buku_id);
@@ -117,8 +118,8 @@ class Buku_model extends CI_Model {
     */
     function update_buku($id, $data)
     {
-		$this->db->where('id', $id);
-		$this->db->update('products', $data);
+		$this->db->where('id_buku', $id);
+		$this->db->update('tb_buku', $data);
 		$report = array();
 		$report['error'] = $this->db->_error_number();
 		$report['message'] = $this->db->_error_message();
@@ -128,16 +129,5 @@ class Buku_model extends CI_Model {
 			return false;
 		}
 	}
-
-    /**
-    * Delete product
-    * @param int $id - product id
-    * @return boolean
-    */
-	function delete_buku($id){
-		$this->db->where('id_buku', $id);
-		$this->db->delete('tb_buku'); 
-	}
- 
 }
 ?>	

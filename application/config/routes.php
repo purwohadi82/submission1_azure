@@ -52,21 +52,15 @@ $route['admin/home'] = 'admin_home/index';
 
 $route['admin/buku'] = 'admin_buku/index';
 $route['admin/buku/add'] = 'admin_buku/add';
-$route['admin/buku/update'] = 'admin_buku/update';
-$route['admin/buku/update/(:any)'] = 'admin_buku/update/$1';
-$route['admin/buku/delete/(:any)'] = 'admin_buku/delete/$1';
-$route['admin/buku/(:any)'] = 'admin_buku/index/$1'; //$1 = page number
 
-$route['admin/analisa']         = 'admin_analisa/index';
-$route['admin/analisa/upload']  = 'admin_analisa/upload';
-$route['admin/analisa/add']     = 'admin_analisa/add';
+$route['admin/buku/analyze']        = 'admin_buku/analyze';
+$route['admin/buku/analyze/(:any)'] = 'admin_buku/analyze';
 
-$route['admin/manufacturers'] = 'admin_manufacturers/index';
-$route['admin/manufacturers/add'] = 'admin_manufacturers/add';
-$route['admin/manufacturers/update'] = 'admin_manufacturers/update';
-$route['admin/manufacturers/update/(:any)'] = 'admin_manufacturers/update/$1';
-$route['admin/manufacturers/delete/(:any)'] = 'admin_manufacturers/delete/$1';
-$route['admin/manufacturers/(:any)'] = 'admin_manufacturers/index/$1'; //$1 = page number
+$route['admin/buku/update']         = 'admin_buku/update';
+$route['admin/buku/update/(:any)']  = 'admin_buku/update/$1';
+
+$route['admin/buku/delete/(:any)']  = 'admin_buku/delete/$1';
+$route['admin/buku/(:any)']         = 'admin_buku/index/$1'; //$1 = page number
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

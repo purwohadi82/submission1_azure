@@ -30,7 +30,7 @@
       //form validation
       echo validation_errors();
       
-      echo form_open('admin/buku/add', $attributes);
+      echo form_open_multipart('admin/buku/add', $attributes);
       ?>
         <fieldset>
             <div class="control-group">
@@ -89,14 +89,14 @@
                     <!--<span class="help-inline">OOps</span>-->
                 </div>
             </div>
-            <!--
+            
             <div class="control-group">
                 <label for="inputError" class="control-label">Upload Gambar</label>
                 <div class="controls">
-                    <input type="file" id="upload" name="upload">
+                    <input type="file" name="fileToUpload" accept=".jpeg,.jpg,.png" required="">
                 </div>
             </div>
-            -->
+            
             <div class="form-actions">
                 <button class="btn btn-primary" type="submit">Save changes</button>
                 <button class="btn" type="reset">Cancel</button>

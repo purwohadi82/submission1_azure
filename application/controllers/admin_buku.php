@@ -1,4 +1,14 @@
 <?php
+require_once(APPPATH.'libraries/vendor/autoload.php');
+
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
+use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
+
+use GuzzleHttp\Client;
+
 class Admin_buku extends CI_Controller {
  
     /**
@@ -158,6 +168,19 @@ class Admin_buku extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
+                $storageaccountkey  = 'QldD9fFpWIqyvZcFtiXmDAGIX8RWD6HF8r2dNG4XUom01XKHfyQe6tU5PjrvLKUX/FHPzZl+0gwJaerG5QRYXw==';
+                $storageaccountname = 'purwowebapp';
+                $connectionString   = "DefaultEndpointsProtocol=https;AccountName=$storageaccountname;AccountKey=$storageaccountkey";
+                $containerName = "blobpurwo";
+                
+                // Create blob client.
+                $blobClient = BlobRestProxy::createBlobService($connectionString);
+                
+                $fileToUpload   = strtolower($_FILES["fileToUpload"]["name"]);
+                $content        = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
+                           
+                $blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+            
                 $data_to_store = array(
                     'judul' => $this->input->post('judul'),
                     'penulis' => $this->input->post('penulis'),
@@ -169,7 +192,8 @@ class Admin_buku extends CI_Controller {
                     'jumlah' => $this->input->post('jumlah'),
                     'create_date' => date('Y-m-d'),
                     'update_date' => date('Y-m-d'),
-                    'id_petugas' => $this->session->userdata('id_petugas')
+                    'id_petugas' => $this->session->userdata('id_petugas'),
+                    'foto' => 'https://purwowebapp.blob.core.windows.net/blobpurwo/'.$fileToUpload
                 );
                 //if the insert has returned true then we show the flash message
                 if($this->buku_model->store_buku($data_to_store)){
@@ -183,7 +207,19 @@ class Admin_buku extends CI_Controller {
         }
         $data['main_content'] = 'admin/buku/add';
         $this->load->view('includes/form_template', $data);  
-    }       
+    }
+    
+    public function  analyze(){
+        
+        //buku id 
+        $id = $this->uri->segment(4);
+        //buku data 
+        $data['buku'] = $this->buku_model->get_buku_by_id($id);
+        
+        $data['main_content'] = 'admin/buku/analyze';
+       
+        $this->load->view('includes/template', $data);  
+    }
 
     /**
     * Update item by his id
@@ -191,7 +227,7 @@ class Admin_buku extends CI_Controller {
     */
     public function update()
     {
-        //product id 
+        //buku id 
         $id = $this->uri->segment(4);
   
         //if save button was clicked, get the data sent via post
@@ -210,8 +246,36 @@ class Admin_buku extends CI_Controller {
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-    
-                $data_to_store = array(
+                if($_FILES["fileToUpload"]["name"]){
+                    $storageaccountkey  = 'QldD9fFpWIqyvZcFtiXmDAGIX8RWD6HF8r2dNG4XUom01XKHfyQe6tU5PjrvLKUX/FHPzZl+0gwJaerG5QRYXw==';
+                    $storageaccountname = 'purwowebapp';
+                    $connectionString   = "DefaultEndpointsProtocol=https;AccountName=$storageaccountname;AccountKey=$storageaccountkey";
+                    $containerName      = "blobpurwo";
+                    
+                    // Create blob client.
+                    $blobClient = BlobRestProxy::createBlobService($connectionString);
+                    
+                    $fileToUpload   = strtolower($_FILES["fileToUpload"]["name"]);
+                    $content        = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
+                               
+                    $blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+                    
+                    $data_to_store = array(
+                    'judul'         => $this->input->post('judul'),
+                    'penulis'       => $this->input->post('penulis'),
+                    'penerbit'      => $this->input->post('penerbit'),
+                    'tahun'         => $this->input->post('tahun'),          
+                    'jenis_buku'    => $this->input->post('jenis_buku'),
+                    'lokasi_rak'    => $this->input->post('lokasi_rak'),
+                    'isbn'          => $this->input->post('isbn'),
+                    'jumlah'        => $this->input->post('jumlah'),
+                    'update_date'   => date('Y-m-d'),
+                    'id_petugas'    => $this->session->userdata('id_petugas'),
+                    'foto' => 'https://purwowebapp.blob.core.windows.net/blobpurwo/'.$fileToUpload
+                    );
+                }
+                else{
+                    $data_to_store = array(
                     'judul'         => $this->input->post('judul'),
                     'penulis'       => $this->input->post('penulis'),
                     'penerbit'      => $this->input->post('penerbit'),
@@ -222,7 +286,11 @@ class Admin_buku extends CI_Controller {
                     'jumlah'        => $this->input->post('jumlah'),
                     'update_date'   => date('Y-m-d'),
                     'id_petugas'    => $this->session->userdata('id_petugas')
-                );
+                    );
+                }
+                
+                
+                
                 //if the insert has returned true then we show the flash message
                 if($this->buku_model->update_buku($id, $data_to_store) == TRUE){
                     $this->session->set_flashdata('flash_message', 'updated');
@@ -242,20 +310,9 @@ class Admin_buku extends CI_Controller {
         $data['buku'] = $this->buku_model->get_buku_by_id($id);
 
         $data['main_content'] = 'admin/buku/edit';
+       
         $this->load->view('includes/template', $data);            
 
     }//update
-
-    /**
-    * Delete product by his id
-    * @return void
-    */
-    public function delete()
-    {
-        //product id 
-        $id = $this->uri->segment(4);
-        $this->buku_model->delete_buku($id);
-        redirect('admin/buku');
-    }//edit
 
 }

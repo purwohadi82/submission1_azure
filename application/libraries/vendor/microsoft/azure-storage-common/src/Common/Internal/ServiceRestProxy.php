@@ -100,7 +100,8 @@ class ServiceRestProxy extends RestProxy
     {
         $verify = true;
         //Disable SSL if proxy has been set, and set the proxy in the client.
-        $proxy = getenv('HTTP_PROXY');
+        //$proxy = getenv('HTTP_PROXY');
+        $proxy = getenv('NO_PROXY');
         // For testing with Fiddler
         // $proxy = 'localhost:8888';
         // $verify = false;

@@ -35,11 +35,7 @@
 					<li>
 	          			<a href="<?php echo base_url(); ?>admin/buku">Buku</a>
 	       			</li>
-                    
-                    <li>
-	          			<a href="<?php echo base_url(); ?>admin/analisa">analyze</a>
-	       			</li>
-					
+                    					
 					<li class="parent">
 						<a href="#">Member</a>
 						<ul class="sub-menu">

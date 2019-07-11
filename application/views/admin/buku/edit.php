@@ -44,64 +44,83 @@
       ?>
       
       <?php
-      //form data
-      $attributes = array('class' => 'form-horizontal', 'id' => '');
-      $options_manufacture = array('' => "Select");
-      foreach ($manufactures as $row)
-      {
-        $options_manufacture[$row['id']] = $row['name'];
-      }
-
       //form validation
       echo validation_errors();
 
-      echo form_open('admin/products/update/'.$this->uri->segment(4).'', $attributes);
+      echo form_open_multipart('admin/buku/update/'.$this->uri->segment(4));
       ?>
         <fieldset>
-          <div class="control-group">
-            <label for="inputError" class="control-label">Description</label>
-            <div class="controls">
-              <input type="text" id="" name="description" value="<?php echo $product[0]['description']; ?>" >
-              <!--<span class="help-inline">Woohoo!</span>-->
+            <div class="control-group">
+                <label for="inputError" class="control-label">Judul</label>
+                <div class="controls">
+                    <input type="text" id="judul" name="judul" value="<?php echo $buku->judul; ?>" >
+                    <!--<span class="help-inline">Woohoo!</span>-->
+                </div>
             </div>
-          </div>
-          <div class="control-group">
-            <label for="inputError" class="control-label">Stock</label>
-            <div class="controls">
-              <input type="text" id="" name="stock" value="<?php echo $product[0]['stock']; ?>">
-              <!--<span class="help-inline">Cost Price</span>-->
+            <div class="control-group">
+                <label for="inputError" class="control-label">Penulis</label>
+                <div class="controls">
+                    <input type="text" id="penulis" name="penulis" value="<?php echo $buku->penulis; ?>">
+                    <!--<span class="help-inline">Cost Price</span>-->
+                </div>
+            </div>          
+            <div class="control-group">
+                <label for="inputError" class="control-label">Penerbit</label>
+                <div class="controls">
+                    <input type="text" id="penerbit" name="penerbit" value="<?php echo $buku->penerbit; ?>">
+                    <!--<span class="help-inline">Cost Price</span>-->
+                </div>
             </div>
-          </div>          
-          <div class="control-group">
-            <label for="inputError" class="control-label">Cost Price</label>
-            <div class="controls">
-              <input type="text" id="" name="cost_price" value="<?php echo $product[0]['cost_price'];?>">
-              <!--<span class="help-inline">Cost Price</span>-->
+            <div class="control-group">
+                <label for="inputError" class="control-label">Tahun</label>
+                <div class="controls">
+                    <input type="text" id="tahun" name="tahun" value="<?php echo $buku->tahun; ?>" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    <!--<span class="help-inline">OOps</span>-->
+                </div>
             </div>
-          </div>
-          <div class="control-group">
-            <label for="inputError" class="control-label">Sell Price</label>
-            <div class="controls">
-              <input type="text" name="sell_price" value="<?php echo $product[0]['sell_price']; ?>">
-              <!--<span class="help-inline">OOps</span>-->
+            <div class="control-group">
+                <label for="inputError" class="control-label">Jenis Buku</label>
+                <div class="controls">
+                    <input type="text" id="jenis_buku" name="jenis_buku" value="<?php echo $buku->jenis_buku; ?>">
+                    <!--<span class="help-inline">OOps</span>-->
+                </div>
             </div>
-          </div>
-          <?php
-          echo '<div class="control-group">';
-            echo '<label for="manufacture_id" class="control-label">Manufacture</label>';
-            echo '<div class="controls">';
-              //echo form_dropdown('manufacture_id', $options_manufacture, '', 'class="span2"');
-              
-              echo form_dropdown('manufacture_id', $options_manufacture, $product[0]['manufacture_id'], 'class="span2"');
-
-            echo '</div>';
-          echo '</div">';
-          ?>
-          <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Save changes</button>
-            <button class="btn" type="reset">Cancel</button>
-          </div>
+            <div class="control-group">
+                <label for="inputError" class="control-label">Lokasi Rak</label>
+                <div class="controls">
+                    <input type="text" id="lokasi_rak" name="lokasi_rak" value="<?php echo $buku->lokasi_rak; ?>">
+                    <!--<span class="help-inline">OOps</span>-->
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="inputError" class="control-label">Isbn</label>
+                <div class="controls">
+                    <input type="text" id="isbn" name="isbn" value="<?php echo $buku->isbn; ?>">
+                    <!--<span class="help-inline">OOps</span>-->
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="inputError" class="control-label">Jumlah</label>
+                <div class="controls">
+                    <input type="text" id="jumlah" name="jumlah" value="<?php echo $buku->jumlah; ?>" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    <!--<span class="help-inline">OOps</span>-->
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label for="inputError" class="control-label">Upload Gambar</label>
+                <div class="controls">
+                    <input type="file" name="fileToUpload" accept=".jpeg,.jpg,.png">
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Save changes</button>
+                <button class="btn" type="reset">Cancel</button>
+            </div>
         </fieldset>
+        
+        
 
       <?php echo form_close(); ?>
 
